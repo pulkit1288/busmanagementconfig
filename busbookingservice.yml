@@ -9,6 +9,12 @@ spring:
     broker-url: tcp://localhost:61616
     user: admin
     password: admin
+  cloud:
+    config:
+      uri:
+      - http://localhost:8888
+  config:
+    import: configserver:http://localhost:8888
   
 server:
   port: 8083
@@ -18,7 +24,13 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-    enabled: false
+    enabled: true
   instance:
     preferIpAddress: true
     
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - refresh
